@@ -1,0 +1,23 @@
+#include<stdio.h>
+#include<math.h>
+double ham(double x){
+    double y = pow(x,3)+4*pow(x,2)-1;
+    return y;
+}
+int main(){
+    double x, a=0, b=1, D, e=0.001, y;
+    while(1){
+        x=(a+b)/2;
+        y=ham(x);
+        if(ham(x) * ham(a)<0) b=x;
+        else a=x;
+        D=(b-a)/2;
+        if(D<e) {
+            break;
+        }
+        printf("gia tri cua x la : %lf\n", x);
+        printf("khoang moi [a;b] la [%lf;%lf]\n", a, b);
+        }
+    printf("Nghiem cua phuong trinh la: %lf", x);
+    return 0;
+}
