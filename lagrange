@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_POINTS 100
+
+// Hàm tính giá trị của đa thức nội suy Lagrange tại một điểm x
+double lagrange_interpolation(double x, double x_data[], double y_data[], int n) {
+    double result = 0.0;
+    for (int i = 0; i < n; i++) {
+        double term = y_data[i];
+        for (int j = 0; j < n; j++) {
+            if (i != j) {
+                term *= (x - x_data[j]) / (x_data[i] - x_data[j]);
+            }
+        }
+        result += term;
+    }
+    return result;
+}
+
+int main() {
+    // Số lượng điểm dữ liệu
+    int n;
+    printf("Nhap so luong diem du lieu: ");
+    scanf("%d", &n);
+
+    // Mảng chứa các giá trị x và y
+    double x_data[MAX_POINTS], y_data[MAX_POINTS];
+
+    // Nhập các điểm dữ liệu
+    printf("Nhap cac diem du lieu (x y):\n");
+    for (int i = 0; i < n; i++) {
+        scanf("%lf %lf", &x_data[i], &y_data[i]);
+    }
+
+    // Giá trị x cần tính
+    double x;
+    printf("Nhap gia tri x can tinh: ");
+    scanf("%lf", &x);
+
+    // Tính giá trị của đa thức nội suy tại x
+    double result = lagrange_interpolation(x, x_data, y_data, n);
+
+    // In kết quả
+    printf("Gia tri cua da thuc noi suy tai x = %.2lf la: %.2lf\n", x, result);
+
+    return 0;
+}
