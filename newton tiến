@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_POINTS 100
+
+// Hàm tính hiệu chia phân tiến
+double divided_difference_forward(double x[], double y[], int i, int j) {
+    if (i == j) {
+        return y[i];
+    } else {
+        return (divided_difference_forward(x, y, i + 1, j) - divided_difference_forward(x, y, i, j - 1)) / (x[j] - x[i]);
+    }
+}
+
+// Hàm tính giá trị của đa thức nội suy Newton tiến tại một điểm x
+double newton_forward_interpolation(double x, double x_data[], double y[], int n) {
+    double result = y[0];
+    double term;
+    for (int i = 1; i < n; i++) {
+        term = 1;
+        for (int j = 0; j < i; j++) {
+            term *= (x - x_data[j]);
+        }
+        result += term * divided_difference_forward(x_data, y, 0, i);
+    }
+    return result;
+}
+
+int main() {
+    // ... (Tương tự như đoạn code nội suy Newton)
+    // ...
+
+    // Tính giá trị của đa thức nội suy Newton tiến tại x
+    double result = newton_forward_interpolation(x, x_data, y_data, n);
+
+    // ... (In kết quả)
+    // ...
+}
