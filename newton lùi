@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <math.h>
+
+#define MAX_POINTS 100
+
+// Hàm tính hiệu chia phân lùi
+double divided_difference_backward(double x[], double y[], int i, int j) {
+    if (i == j) {
+        return y[i];
+    } else {
+        return (divided_difference_backward(x, y, i, j - 1) - divided_difference_backward(x, y, i + 1, j)) / (x[i] - x[j]);
+    }
+}
+
+// Hàm tính giá trị của đa thức nội suy Newton lùi tại một điểm x
+double newton_backward_interpolation(double x, double x_data[], double y[], int n) {
+    double result = y[n - 1];
+    double term;
+    for (int i = n - 2; i >= 0; i--) {
+        term = 1;
+        for (int j = n - 1; j > i; j--) {
+            term *= (x - x_data[j]);
+        }
+        result += term * divided_difference_backward(x_data, y, i, n - 1);
+    }
+    return result;
+}
+
+int main() {
+    // ... (Tương tự như đoạn code nội suy Newton)
+    // ...
+
+    // Tính giá trị của đa thức nội suy Newton lùi tại x
+    double result = newton_backward_interpolation(x, x_data, y_data, n);
+
+    // ... (In kết quả)
+    // ...
+}
