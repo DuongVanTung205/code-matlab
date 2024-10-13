@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <math.h>
+
+#define EPSILON 0.0001 // Độ chính xác
+
+// Hàm tính giá trị của hàm f(x)
+double f(double x) {
+    // Thay thế hàm này bằng hàm cụ thể của bạn
+    // Ví dụ: f(x) = x*x - 4
+    return x*x - 4;
+}
+
+// Phương pháp dây cung
+double secant_method(double x0, double x1) {
+    double x2;
+    do {
+        x2 = x1 - f(x1) * (x1 - x0) / (f(x1) - f(x0));
+        x0 = x1;
+        x1 = x2;
+    } while (fabs(x2 - x1) >= EPSILON);
+    return x2;
+}
+
+int main() {
+    double x0, x1;
+    printf("Nhap gia tri ban dau x0: ");
+    scanf("%lf", &x0);
+    printf("Nhap gia tri ban dau x1: ");
+    scanf("%lf", &x1);
+
+    double root = secant_method(x0, x1);
+    printf("Nghiem cua phuong trinh la: %lf\n", root);
+
+    return 0;
+}
